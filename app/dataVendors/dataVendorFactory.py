@@ -1,7 +1,8 @@
-from typing import Type
+from typing import Type, Optional
 
 from .baseDataVendor import BaseDataVendor
 from .financialDatasetsAI.vendor import FinancialDatasetsAI
+from .yfinance.vendor import YahooFinance
 
 
 class DataVendorFactory:
@@ -9,12 +10,14 @@ class DataVendorFactory:
 
     _vendors: dict[str, Type[BaseDataVendor]] = {
         "financialDatasetsAI": FinancialDatasetsAI,
-        "yfinance": "YahooFinance",
-        "alphaVantage": "AlphaVantage",
+        "yfinance": YahooFinance,
+        # "alphaVantage": "AlphaVantage",
     }
 
     @classmethod
-    def get_vendor(cls, vendor_name: str, **kwargs) -> BaseDataVendor:
+    def get_vendor(
+        cls, vendor_name: str, api_key: Optional[str] = None
+    ) -> BaseDataVendor:
         """
         Get vendor instance by name
 
@@ -26,4 +29,4 @@ class DataVendorFactory:
         if not vendor_class:
             raise ValueError(f"Unsupported vendor: {vendor_name}")
 
-        return vendor_class(**kwargs)
+        return vendor_class(api_key=api_key)

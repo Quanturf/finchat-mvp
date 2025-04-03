@@ -13,7 +13,7 @@ GET_TICKER_PRICE_TOOL = {
                 "data_vendor": {
                     "type": "string",
                     "description": "The preferred data source",
-                    "enum": ["financialDatasetsAI", "yfinance"],
+                    "enum": ["yfinance"],
                 },
             },
             "required": ["ticker", "data_vendor"],
@@ -40,7 +40,7 @@ GET_TICKER_HISTORY_TOOL = {
                 "data_vendor": {
                     "type": "string",
                     "description": "The preferred data source",
-                    "enum": ["financialDatasetsAI", "yfinance"],
+                    "enum": ["yfinance"],
                 },
                 "start_date": {
                     "type": "string",
@@ -54,8 +54,8 @@ GET_TICKER_HISTORY_TOOL = {
                 },
                 "interval": {
                     "type": "string",
-                    "description": "interval to get price for",
-                    "enum": ["second", "minute", "day", "week", "month", "year"],
+                    "description": "interval to get price for. Default must be '1wk'",
+                    "enum": ["60m", "90m", "1h", "1d", "5d", "1wk", "1mo", "3mo"],
                 },
             },
             "required": ["ticker", "data_vendor", "start_date", "end_date"],
